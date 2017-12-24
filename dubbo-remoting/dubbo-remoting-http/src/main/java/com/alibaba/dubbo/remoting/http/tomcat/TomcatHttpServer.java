@@ -65,7 +65,7 @@ public class TomcatHttpServer extends AbstractHttpServer {
         tomcat.getConnector().setProperty("maxKeepAliveRequests", "-1");
         tomcat.getConnector().setProtocol("org.apache.coyote.http11.Http11NioProtocol");
 
-        Context context = tomcat.addContext("", baseDir); //修复： A context path must either be an empty string or start with a '/' and do not end with a '/'. The path [/] does not meet these criteria and has been changed to []
+        Context context = tomcat.addContext("", baseDir); //修复在tomcat8中警告：A context path must either be an empty string or start with a '/' and do not end with a '/'. The path [/] does not meet these criteria and has been changed to []
         Tomcat.addServlet(context, "dispatcher", new DispatcherServlet());
         context.addServletMapping("/*", "dispatcher");
         ServletManager.getInstance().addServletContext(url.getPort(), context.getServletContext());
